@@ -6,12 +6,20 @@
 # 输入样例：1+(2*(2/3))-100
 
 # 编写递归调用程序实现自顶向下的分析。
+# 为避免无限循环问题，原文法已转换为：
+# E → TE'
+# E'→ +TE' | -TE' | ε
+# T → FT'
+# T'→ *FT' | /FT' | ε
+# F → (E) | num
+
 
 from LexicalAnalysis import tokenize
 
 
 # 语法分析函数
 def parse_expression(tokens):
+    print("分析产生式E→E+T|E-T|T")
     # E→E+T|E-T|T
     left_operand = parse_term(tokens)
     while tokens and (tokens[0][0] == 'ADD' or tokens[0][0] == 'SUB'):
@@ -22,6 +30,7 @@ def parse_expression(tokens):
 
 
 def parse_term(tokens):
+    print("分析产生式T→T*F|T/F|F")
     # T→T*F|T/F|F
     left_operand = parse_factor(tokens)
     while tokens and (tokens[0][0] == 'MUL' or tokens[0][0] == 'DIV'):
@@ -32,6 +41,7 @@ def parse_term(tokens):
 
 
 def parse_factor(tokens):
+    print("分析产生式F→(E)|num")
     # F→(E)|num
     if tokens[0][0] == 'LPAREN':
         tokens.pop(0)  # 消耗左括号
@@ -45,6 +55,7 @@ def parse_factor(tokens):
         return int(tokens.pop(0)[1])
     else:
         raise ValueError(f"无法识别的字符: {tokens[0][1]}")
+
 
 # 输入样例
 if __name__ == "__main__":
