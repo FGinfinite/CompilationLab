@@ -1,17 +1,4 @@
-# 要求所分析算数表达式由如下的文法产生。
-# E→E+T|E-T|T
-# T→T*F|T/F|F
-# F→(E)| num
-# 其中，E表示表达式，T表示项，F表示因子，num表示数字。
-# 输入样例：1+(2*(2/3))-100
-
-# 编写递归调用程序实现自顶向下的分析。
-# 为避免无限循环问题，原文法已转换为：
-# E → TE'
-# E'→ +TE' | -TE' | ε
-# T → FT'
-# T'→ *FT' | /FT' | ε
-# F → (E) | num
+# 递归下降语法分析器
 
 
 from LexicalAnalysis import tokenize
@@ -22,7 +9,7 @@ def parse_expression(tokens):
     print("分析产生式E→E+T|E-T|T")
     # E→E+T|E-T|T
     left_operand = parse_term(tokens)
-    while tokens and (tokens[0][0] == 'ADD' or tokens[0][0] == 'SUB'):
+    while tokens and (tokens[0][0] == '+' or tokens[0][0] == '-'):
         operator = tokens.pop(0)
         right_operand = parse_term(tokens)
         left_operand = (operator[1], left_operand, right_operand)
@@ -33,7 +20,7 @@ def parse_term(tokens):
     print("分析产生式T→T*F|T/F|F")
     # T→T*F|T/F|F
     left_operand = parse_factor(tokens)
-    while tokens and (tokens[0][0] == 'MUL' or tokens[0][0] == 'DIV'):
+    while tokens and (tokens[0][0] == '*' or tokens[0][0] == '/'):
         operator = tokens.pop(0)
         right_operand = parse_factor(tokens)
         left_operand = (operator[1], left_operand, right_operand)
@@ -43,15 +30,15 @@ def parse_term(tokens):
 def parse_factor(tokens):
     print("分析产生式F→(E)|num")
     # F→(E)|num
-    if tokens[0][0] == 'LPAREN':
+    if tokens[0][0] == '(':
         tokens.pop(0)  # 消耗左括号
         expression = parse_expression(tokens)
-        if tokens[0][0] == 'RPAREN':
+        if tokens[0][0] == ')':
             tokens.pop(0)  # 消耗右括号
             return expression
         else:
             raise ValueError("缺少右括号")
-    elif tokens[0][0] == 'NUM':
+    elif tokens[0][0] == 'i':
         return int(tokens.pop(0)[1])
     else:
         raise ValueError(f"无法识别的字符: {tokens[0][1]}")
@@ -59,7 +46,7 @@ def parse_factor(tokens):
 
 # 输入样例
 if __name__ == "__main__":
-    input_string = "1+(2*(2/3))-100"
-    tokens = tokenize(input_string)
+    input_tokens = "1+(2*(2/3))-100"
+    tokens = tokenize(input_tokens)
     parsed_expression = parse_expression(tokens)
     print(parsed_expression)

@@ -197,10 +197,10 @@ def complete_follow_set() -> None:
             break
 
 
-def construct_analysis_table():
+def construct_analysis_table() -> tuple[dict[tuple[str, str], list[str]], str]:
     global analysis_table, FOLLOW, FIRST, productions, terminals, non_terminals
 
-    get_production("production.txt")
+    get_production("data/production.txt")
     transform_grammar()
     for non_terminal in non_terminals:
         get_first_set(non_terminal)
@@ -220,13 +220,15 @@ def construct_analysis_table():
             for terminal in FIRST[production[1][0]].difference({"ε"}):
                 analysis_table[(production[0], terminal)].append(production)
 
-    print("开始符号：" + start_symbol)
-    print("非终结符：" + str(non_terminals))
-    print("终结符：" + str(terminals))
-    print("产生式：" + str(productions))
-    print("FIRST集：" + str(FIRST))
-    print("FOLLOW集：" + str(FOLLOW))
-    print("预测分析表：" + str(analysis_table))
+    # print("开始符号：" + start_symbol)
+    # print("非终结符：" + str(non_terminals))
+    # print("终结符：" + str(terminals))
+    # print("产生式：" + str(productions))
+    # print("FIRST集：" + str(FIRST))
+    # print("FOLLOW集：" + str(FOLLOW))
+    # print("预测分析表：" + str(analysis_table))
+
+    return analysis_table, start_symbol
 
 
 if __name__ == "__main__":
