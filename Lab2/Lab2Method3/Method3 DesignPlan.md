@@ -1,4 +1,4 @@
-# 方法3
+# Method3 DesignPlan
 
 ## 实验分析
 
@@ -27,4 +27,4 @@
 ## 构造识别改文法所有活前缀的DFA
 ![Alt text](https://github.com/FGinfinite/CompilationLab/blob/8a9313cdc43751acaebfe4011d25257b4b65b7af/Lab2/Lab2Method3/imgs/DFA.png)
 ## LR分析表
-![Alt text]()
+![Alt text](https://github.com/FGinfinite/CompilationLab/blob/81d44f878bc32afda117c04a438f4e446865ba18/Lab2/Lab2Method3/imgs/Table.png)
