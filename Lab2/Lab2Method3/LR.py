@@ -210,11 +210,11 @@ def err3():
             print("error3\t\t\t缺少操作符，请添加操作符到栈里.")
 
 
-print("请输入一个待分析串，以$结束")
-buffer = input()
+#print("请输入一个待分析串，以$结束")
+#buffer = input()
 
 #ForTEST
-#buffer = "8*(8-6)/4$"
+buffer = "8*(8-6)/4$"
 #ForTEST
 
 transform() #将字符转化为编码
@@ -241,4 +241,3 @@ while flag:
         elif case == 53:
             err3()
             get_number()
-#system("pause")
