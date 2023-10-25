@@ -63,7 +63,7 @@ Void A(){
 pip install cython
 ```
 
-知乎运行以下指令以对cython文件进行编译：
+之后运行以下指令以对cython文件进行编译：
 
 ```shell
 python Presentation/setup.py build_ext --inplace      # 编译
