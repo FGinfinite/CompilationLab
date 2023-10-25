@@ -9,7 +9,8 @@ import re
 def tokenize(input_string: str) -> list[tuple[str, str]]:  # 词法分析器
     # 定义词法单元的正则表达式模式
     patterns = [
-        ('i', r'\d+'),  # 匹配数字
+        ('n', r'\d+'),  # 匹配数字
+        ('i', r'[a-zA-Z]'),  # 匹配标识符
         ('+', r'\+'),  # 匹配加号
         ('-', r'-'),  # 匹配减号
         ('*', r'\*'),  # 匹配乘号
@@ -34,6 +35,6 @@ def tokenize(input_string: str) -> list[tuple[str, str]]:  # 词法分析器
 
 
 if __name__ == "__main__":
-    input_tokens = "1+(2*(2/3))-100"
+    input_tokens = "(a(b(2))(c))"
     tokens = tokenize(input_tokens)
     print(tokens)

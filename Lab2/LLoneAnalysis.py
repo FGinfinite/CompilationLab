@@ -39,10 +39,19 @@ def analysis():
             print()
             init_stack()
             while stack[-1] != '$':
+                print("当前栈：", end="")
+                for char in stack:
+                    print(char, end="")
+                print("    ", end="")
+                print("当前输入：", end="")
+                for token in input_tokens:
+                    print(token[0], end="")
+                print("    ", end="")
                 stack_top = stack.pop()
                 tokens_top = input_tokens[0]
                 if stack_top == tokens_top[0]:
                     input_tokens.pop(0)
+                    print("匹配")
                     continue
                 elif (stack_top, tokens_top[0]) in table:
                     production = table[(stack_top, tokens_top[0])]

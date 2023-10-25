@@ -220,13 +220,13 @@ def construct_analysis_table() -> tuple[dict[tuple[str, str], list[str]], str]:
             for terminal in FIRST[production[1][0]].difference({"ε"}):
                 analysis_table[(production[0], terminal)].append(production)
 
-    # print("开始符号：" + start_symbol)
-    # print("非终结符：" + str(non_terminals))
-    # print("终结符：" + str(terminals))
-    # print("产生式：" + str(productions))
-    # print("FIRST集：" + str(FIRST))
-    # print("FOLLOW集：" + str(FOLLOW))
-    # print("预测分析表：" + str(analysis_table))
+    print("开始符号：" + start_symbol)
+    print("非终结符：" + str(non_terminals))
+    print("终结符：" + str(terminals))
+    print("产生式：" + str(productions))
+    print("FIRST集：" + str(FIRST))
+    print("FOLLOW集：" + str(FOLLOW))
+    print("预测分析表：" + str(analysis_table))
 
     return analysis_table, start_symbol
 
