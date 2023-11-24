@@ -123,6 +123,13 @@ def pop():
     global top
     top -= 2
 
+# def shift():
+#     # 移进
+#     global X, top
+#     temp = ACTION[tstack[top]][X] # 查找表，确定需要移入的状态
+#     push(X, temp) # 当前读入字符与状态入栈
+#     print(f"S{temp}\t移进.")
+
 def shift():
     # 移进
     global X, top
@@ -130,57 +137,125 @@ def shift():
     push(X, temp) # 当前读入字符与状态入栈
     print(f"S{temp}\t移进.")
 
+# def reduce():
+#     # 规约
+#     global X, top, pos
+#     x = -ACTION[tstack[top]][X]
+#     print(f"R{x}\t规约\t", end="")
+#     case = pro[x].left
+#     if case == 101:
+#         print("S -> ", end="")
+#     elif case == 102:
+#         print("E -> ", end="")
+#     elif case == 103:
+#         print("T -> ", end="")
+#     elif case == 104:
+#         print("F -> ", end="")
+#     for i in range(1, pro[x].len+1):
+#         pop() # 将栈中元素，按照产生式右边的长度依次弹出
+#         case = pro[x].right[i]
+#         if case == 0:
+#             print("$", end="")
+#         elif case == 1:
+#             print("(", end="")
+#         elif case == 2:
+#             print(")", end="")
+#         elif case == 3:
+#             print("+", end="")
+#         elif case == 4:
+#             print("-", end="")
+#         elif case == 5:
+#             print("*", end="")
+#         elif case == 6:
+#             print("/", end="")
+#         elif case == 7:
+#             print("n", end="")
+#         elif case == 101:
+#             print("S", end="")
+#         elif case == 102:
+#             print("E", end="")
+#         elif case == 103:
+#             print("T", end="")
+#         elif case == 104:
+#             print("F", end="")
+#     print()
+#     y = GOTO[tstack[top]][pro[x].left-100]
+#     push(pro[x].left, y)
+#     # 将规约产生式的左部压入栈，并将转移状态也压栈
+
 def reduce():
     # 规约
     global X, top, pos
     x = -ACTION[tstack[top]][X]
-    print(f"R{x}\t规约\t", end="")
+    #output = f"R{x}\t规约\t"
+    output = f""
     case = pro[x].left
     if case == 101:
-        print("S -> ", end="")
+        output += "S -> "
     elif case == 102:
-        print("E -> ", end="")
+        output += "E -> "
     elif case == 103:
-        print("T -> ", end="")
+        output += "T -> "
     elif case == 104:
-        print("F -> ", end="")
+        output += "F -> "
     for i in range(1, pro[x].len+1):
         pop() # 将栈中元素，按照产生式右边的长度依次弹出
         case = pro[x].right[i]
         if case == 0:
-            print("$", end="")
+            output += "$"
         elif case == 1:
-            print("(", end="")
+            output += "("
         elif case == 2:
-            print(")", end="")
+            output += ")"
         elif case == 3:
-            print("+", end="")
+            output += "+"
         elif case == 4:
-            print("-", end="")
+            output += "-"
         elif case == 5:
-            print("*", end="")
+            output += "*"
         elif case == 6:
-            print("/", end="")
+            output += "/"
         elif case == 7:
-            print("num", end="")
+            output += "n"
         elif case == 101:
-            print("S", end="")
+            output += "S"
         elif case == 102:
-            print("E", end="")
+            output += "E"
         elif case == 103:
-            print("T", end="")
+            output += "T"
         elif case == 104:
-            print("F", end="")
-    print()
+            output += "F"
+    output += "\n"
     y = GOTO[tstack[top]][pro[x].left-100]
     push(pro[x].left, y)
     # 将规约产生式的左部压入栈，并将转移状态也压栈
+
+    # Write output to file
+    with open('output.txt', 'a') as f:
+        f.write(output)
+
+    # Print output to console
+    print(output, end="")
+
+# def acc():
+#     # accept
+#     global flag
+#     flag = 0 # 不再循环
+#     print("ACC!")
 
 def acc():
     # accept
     global flag
     flag = 0 # 不再循环
-    print("ACC!")
+    # output = "ACC!"
+    output = "\n"
+
+    # Write output to file
+    with open('output.txt', 'a') as f:
+        f.write(output + "\n")
+
+    # Print output to console
+    print(output)
 
 def err1():
     # 期待(或运算对象首字符，但出现运算符或者$
